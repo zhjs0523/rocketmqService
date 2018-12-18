@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 每个模块只需要配置一个 consumer -->
+    <bean id="consumer" class="com.zhjs.rocketmq.service.impl.RocketMqConsumerImpl" init-method="afterPropertiesSet" destroy-method="destroy">
+        <property name="namesrvAddr" value="127.0.0.1:9876" />
+        <property name="consumerGroup" value="LOANSYS" />
+        <!-- 消费方式：BROADCASTING 广播消费，CLUSTERING 集群消费 -->
+        <property name="messageModel" value="BROADCASTING" />
+        <!-- CONCURRENTLY 无序消费  ORDERLY 有序消费 -->
+        <property name="messageListener" value="CONCURRENTLY" />
+        <property name="handlermap">
+            <map>
+                <entry key="loanRequest">
+                    <bean class="com.zhjs.rocketmq.service.impl.LoanRequestConsumer">
+                        <property name="classTypeName" value="com.zhjs.rocketmq.dto.LoanRequest"></property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+</beans>

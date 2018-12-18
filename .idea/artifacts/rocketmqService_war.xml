@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="rocketmqService:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="rocketmqService.war">
+      <element id="artifact" artifact-name="rocketmqService:war exploded" />
+    </root>
+  </artifact>
+</component>
